@@ -44,7 +44,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Modelo",
+                name: "Accesorio",
                 columns: table => new
                 {
                     TicketId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -70,7 +70,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                 name: "Prioridades");
 
             migrationBuilder.DropTable(
-                name: "Modelo");
+                name: "Accesorio");
         }
     }
 }

@@ -1,35 +1,53 @@
-@page "/RegistroPrioridades"
-@page "/RegistroPrioridades/{AccesorioId:int}"
+@page "/RegistroAccesorio"
+@page "/RegistroAccesorio/{AccesorioId:int}"
 @inject HttpClient httpclient 
 
-<EditForm model = "Prioridades" OnValidSubmit="Guardar">
+<EditForm model = "Acccesorio" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class ="container">
         <div class="card shadow-lg">
             <div class="card-header">
-                <h3>Registro de prioridades.</h3>
+                <h3>Registro de Accesorio.</h3>
             </div>
             <div class=card-body>
 
                 <div class= "col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
-                    <label>ID Prioridad:</label>
+                    <label>ID Accesorio:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value ="prioridades.AccesorioId" class="form-control" aria-describedby="BotonBuscar"/>
+                        <InputNumber @bind-Value ="Accesorio.AccesorioId" class="form-control" aria-describedby="BotonBuscar"/>
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class ="oi oi-magnifying-glass"/></button>
                     </div>
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label" for="Descripcion">Descripción:</label>
-                    <InputText @bind-Value="prioridades.Descripcion" class="form-control" />
-                    <ValidationMessage For="@(() => prioridades.Descripcion)" />
+                    <label class="form-label" for="Camara Trasera">Camara Trasera:</label>
+                    <InputText @bind-Value="Accesorio.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => Accesorio.Descripcion)" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="DiasCompromiso">Dias compromiso:</label>
-                    <InputNumber @bind-Value="prioridades.Costo" class="form-control"/>
-                    <ValidationMessage For="@(() => prioridades.Costo)" />
+                    <label class="form-label" for="Pantalla Interior">Pantalla Interior:</label>
+                    <InputNumber @bind-Value="Accesorio.Costo" class="form-control"/>
+                    <ValidationMessage For="@(() => Accesorio.Costo)" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="Interior Piel">Interior Piel:</label>
+                    <InputNumber @bind-Value="Accesorio.Costo" class="form-control" />
+                    <ValidationMessage For="@(() => Accesorio.Costo)" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="Sun Roof">Sun Roof:</label>
+                    <InputNumber @bind-Value="Accesorio.Costo" class="form-control" />
+                    <ValidationMessage For="@(() => Accesorio.Costo)" />
+                </div>
+
+                 <div class="mb-3">
+                    <label class="form-label" for="Aros de Lujo">Aros de Lujo:</label>
+                    <InputNumber @bind-Value="Accesorio.Costo" class="form-control" />
+                    <ValidationMessage For="@(() => Accesorio.Costo)" />
                 </div>
 
 

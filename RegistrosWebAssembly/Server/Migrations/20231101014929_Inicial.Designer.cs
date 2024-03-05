@@ -78,7 +78,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                     b.ToTable("Prioridades");
                 });
 
-            modelBuilder.Entity("Modelo", b =>
+            modelBuilder.Entity("Accesorio", b =>
                 {
                     b.Property<int>("ModeloId")
                         .ValueGeneratedOnAdd()
@@ -101,7 +101,7 @@ namespace RegistrosWebAssembly.Server.Migrations
 
                     b.HasKey("ModeloId");
 
-                    b.ToTable("Modelo");
+                    b.ToTable("Accesorio");
                 });
 #pragma warning restore 612, 618
         }

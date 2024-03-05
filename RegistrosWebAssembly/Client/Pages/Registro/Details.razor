@@ -2,60 +2,57 @@
 @page "/RegistroVehiculoDetalle/{ModeloId:int}"
 @inject HttpClient httpclient
 
-<EditForm model = "VehiculoDetalle" OnValidSubmit="Guardar">
-    <DataAnnotationsValidator />
+<DataAnnotationsValidator />
 
-    <div class ="container">
-        <div class="card shadow-lg">
-            <div class="card-header">
-                <h3>Registro de VehiculoDetalle.</h3>
+<div class ="container">
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h3>Registro de VehiculoDetalle.</h3>
+        </div>
+        <div class=card-body>
+
+            <div class= "col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                <label>ID Modelo:</label>
+                <div class="input-group mb-3">
+                    <InputNumber @bind-Value ="Accesorio.AccesorioId" class="form-control" aria-describedby="BotonBuscar"/>
+                    <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class ="oi oi-magnifying-glass"/></button>
+                </div>
             </div>
-            <div class=card-body>
 
-                <div class= "col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
-                    <label>ID Modelo:</label>
-                    <div class="input-group mb-3">
-                        <InputNumber @bind-Value ="Accesorio.ModeloId" class="form-control" aria-describedby="BotonBuscar"/>
-                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class ="oi oi-magnifying-glass"/></button>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label class="form-label" for="Fecha">Fecha:</label>
-                    <InputDate @bind-Value="Accesorio.Fecha" class="form-control" />
-                    <ValidationMessage For="@(() => global::Accesorio.Fecha)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="SolicitadoPor">Solicitado Por:</label>
-                    <InputText @bind-Value="Accesorio.SolicitadoPor" class="form-control"/>
-                    <ValidationMessage For="@(() => Accesorio.SolicitadoPor)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="Asunto">Asunto:</label>
-                    <InputText @bind-Value="Accesorio.Costo" class="form-control"/>
-                    <ValidationMessage For="@(() => Accesorio.Costo)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="Descripcion">Descripcion:</label>
-                    <InputText @bind-Value="Accesorio.Descripcion" class="form-control"/>
-                    <ValidationMessage For="@(() => Accesorio.Descripcion)" />
-                </div>
-
+            <div class="mb-3">
+                <label class="form-label" for="Fecha">Fecha:</label>
+                <InputDate @bind-Value="Accesorio.Fecha" class="form-control" />
+                <ValidationMessage For="@(() => global::Accesorio.Fecha)" />
             </div>
-            <div class="card-footer d-flex justify-content-center">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file"/></button>
-                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document"/></button>
-                    <button type="button" class="btn btn-outline-danger"@onclick="Eliminar">Eliminar <i class="oi oi-trash"/></button>
-                </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="SolicitadoPor">Solicitado Por:</label>
+                <InputText @bind-Value="Accesorio.SolicitadoPor" class="form-control"/>
+                <ValidationMessage For="@(() => Accesorio.SolicitadoPor)" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="Asunto">Asunto:</label>
+                <InputText @bind-Value="Accesorio.Costo" class="form-control"/>
+                <ValidationMessage For="@(() => Accesorio.Costo)" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="Descripcion">Descripcion:</label>
+                <InputText @bind-Value="Accesorio.Descripcion" class="form-control"/>
+                <ValidationMessage For="@(() => Accesorio.Descripcion)" />
+            </div>
+
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file"/></button>
+                <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document"/></button>
+                <button type="button" class="btn btn-outline-danger"@onclick="Eliminar">Eliminar <i class="oi oi-trash"/></button>
             </div>
         </div>
     </div>
-
-</EditForm>
+</div>
 <label>@mensaje</label>
 
 @code
@@ -76,7 +73,7 @@
     }
     public async Task Buscar()
     {
-        var ticketEncontrado = await httpclient.GetFromJsonAsync<VehiculoDetalle>($"api/Prioridades/{Accesorio.ModeloId}");
+        var ticketEncontrado = await httpclient.GetFromJsonAsync<VehiculoDetalle>($"api/Prioridades/{Accesorio.AccesorioId}");
 
         if(ticketEncontrado != null)
         {
@@ -139,7 +136,7 @@
 
     public async Task Eliminar()
     {
-        using var respuesta = await httpclient.DeleteAsync($"api/Modelo/{Accesorio.ModeloId}");
+        using var respuesta = await httpclient.DeleteAsync($"api/Modelo/{Accesorio.AccesorioId}");
 
         if(Validar())
         {

@@ -19,26 +19,26 @@ namespace RegistrosWebAssembly.Server.Controllers
             _context = context;
         }
 
-        // GET: api/Modelo
+        // GET: api/Accesorio
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VehiculoDetalle>>> GetTickets()
+        public async Task<ActionResult<IEnumerable<VehiculoDetalle>>> GetVehiculo()
         {
-          if (_context.Modelo == null)
+          if (_context.Accesorio == null)
           {
               return NotFound();
           }
-            return await _context.Modelo.ToListAsync();
+            return await _context.Accesorio.ToListAsync();
         }
 
-        // GET: api/Modelo/5
+        // GET: api/Accesorio/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<VehiculoDetalle>> GetTickets(int id)
+        public async Task<ActionResult<VehiculoDetalle>> GetVehiculos(int id)
         {
-          if (_context.Modelo == null)
+          if (_context.Accesorio == null)
           {
               return NotFound();
           }
-            var tickets = await _context.Modelo.FindAsync(id);
+            var tickets = await _context.Accesorio.FindAsync(id);
 
             if (tickets == null)
             {
@@ -48,17 +48,17 @@ namespace RegistrosWebAssembly.Server.Controllers
             return tickets;
         }
 
-        // PUT: api/Modelo/5
+        // PUT: api/Accesorio/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTickets(int id, VehiculoDetalle tickets)
+        public async Task<IActionResult> PutVehiculo(int id, VehiculoDetalle vehiculo)
         {
-            if (id != tickets.ModeloId)
+            if (id != vehiculo.AccesorioId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tickets).State = EntityState.Modified;
+            _context.Entry(vehiculo).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace RegistrosWebAssembly.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TicketsExists(id))
+                if (!VehiculoExists(id))
                 {
                     return NotFound();
                 }
@@ -79,44 +79,44 @@ namespace RegistrosWebAssembly.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Modelo
+        // POST: api/Accesorio
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<VehiculoDetalle>> PostTickets(VehiculoDetalle tickets)
+        public async Task<ActionResult<VehiculoDetalle>> PostVehiculo(VehiculoDetalle vehiculo)
         {
-          if (_context.Modelo == null)
+          if (_context.Accesorio == null)
           {
-              return Problem("Entity set 'Context.Modelo'  is null.");
+              return Problem("Entity set 'Context.Accesorio'  is null.");
           }
-            _context.Modelo.Add(tickets);
+            _context.Accesorio.Add(vehiculo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTickets", new { id = tickets.ModeloId }, tickets);
+            return CreatedAtAction("GetVehiculo", new { id = vehiculo.AccesorioId }, vehiculo);
         }
 
-        // DELETE: api/Modelo/5
+        // DELETE: api/Accesorio/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTickets(int id)
+        public async Task<IActionResult> DeleteVehiculos(int id)
         {
-            if (_context.Modelo == null)
+            if (_context.Accesorio == null)
             {
                 return NotFound();
             }
-            var tickets = await _context.Modelo.FindAsync(id);
-            if (tickets == null)
+            var vehiculos = await _context.Accesorio.FindAsync(id);
+            if (vehiculos == null)
             {
                 return NotFound();
             }
 
-            _context.Modelo.Remove(tickets);
+            _context.Accesorio.Remove(vehiculos);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TicketsExists(int id)
+        private bool VehiculoExists(int id)
         {
-            return (_context.Modelo?.Any(e => e.ModeloId == id)).GetValueOrDefault();
+            return (_context.Accesorio?.Any(e => e.AccesorioId == id)).GetValueOrDefault();
         }
     }
 }

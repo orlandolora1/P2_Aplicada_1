@@ -1,59 +1,47 @@
-@page "/RegistroClientes"
-@page "/RegistroClientes/{VehiculoId:int}"
+@page "/RegistroVehiculo"
+@page "/RegistroVehiculo/{VehiculoId:int}"
 @inject HttpClient httpclient
 
-<EditForm model = "Clientes" OnValidSubmit="Guardar">
+<EditForm model = "Vehiculo" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
     <div class ="container">
         <div class="card shadow-lg">
             <div class="card-header">
-                <h3>Registro de Clientes.</h3>
+                <h3>Registro de vehiculo.</h3>
             </div>
             <div class=card-body>
 
                 <div class= "col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
-                    <label>ID Cliente:</label>
+                    <label>ID Vehiculo:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value ="cliente.VehiculoId" class="form-control" aria-describedby="BotonBuscar"/>
+                        <InputNumber @bind-Value ="Vehiculo.VehiculoId" class="form-control" aria-describedby="BotonBuscar"/>
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class ="oi oi-magnifying-glass"/></button>
                     </div>
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label" for="Nombres">Nombres:</label>
-                    <InputText @bind-Value="cliente.Nombres" class="form-control" />
-                    <ValidationMessage For="@(() => cliente.Nombres)" />
+                    <label class="form-label" for="Fecha">Fecha:</label>
+                    <InputText @bind-Value="Vehiculo.Fecha" class="form-control" />
+                    <ValidationMessage For="@(() => Vehiculo.fecha)" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="Telefono">Telefono:</label>
-                    <InputText @bind-Value="cliente.Telefono" class="form-control"/>
-                    <ValidationMessage For="@(() => cliente.Telefono)" />
+                    <label class="form-label" for="Descripcion">Descripcion:</label>
+                    <InputText @bind-Value="Vehiculo.Descripcion" class="form-control"/>
+                    <ValidationMessage For="@(() => Vehiculo.descripcion)" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="Celular">Celular:</label>
-                    <InputText @bind-Value="cliente.Celular" class="form-control"/>
-                    <ValidationMessage For="@(() => cliente.Celular)" />
+                    <label class="form-label" for="Costo">Costo:</label>
+                    <InputText @bind-Value="Vehiculo.Costo" class="form-control"/>
+                    <ValidationMessage For="@(() => Vehiculo.Costo)" />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="RNC">RNC:</label>
-                    <InputText @bind-Value="cliente.RNC" class="form-control"/>
-                    <ValidationMessage For="@(() => cliente.RNC)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="Email">Email:</label>
-                    <InputText @bind-Value="cliente.Email" class="form-control"/>
-                    <ValidationMessage For="@(() => cliente.Email)" />
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="Direccion">Direccion:</label>
-                    <InputText @bind-Value="cliente.Direccion" class="form-control"/>
-                    <ValidationMessage For="@(() => cliente.Direccion)" />
+                    <label class="form-label" for="Gastos">Gastos:</label>
+                    <InputText @bind-Value="Vehiculo.Gastos" class="form-control"/>
+                    <ValidationMessage For="@(() => Vehiculo.Gastos)" />
                 </div>
 
             </div>
@@ -74,36 +62,36 @@
 {
     [Parameter]
 
-    public int ClienteId { get; set; }
-    public Vehiculo cliente { get; set; } = new Vehiculo();
+    public int VehiculoId { get; set; }
+    public Vehiculo vehiculo { get; set; } = new Vehiculo();
     public string mensaje = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        if(ClienteId > 0)
+        if(VehiculoId > 0)
         {
-            cliente.VehiculoId = ClienteId;
+            vehiculo.VehiculoId = VehiculoId;
             await Buscar();
         }
     }
     public async Task Buscar()
     {
-        var clienteEncontrado = await httpclient.GetFromJsonAsync<Vehiculo>($"api/Vehiculo/{cliente.VehiculoId}");
+        var clienteEncontrado = await httpclient.GetFromJsonAsync<Vehiculo>($"api/Vehiculo/{vehiculo.VehiculoId}");
 
         if(clienteEncontrado != null)
         {
-            this.cliente = clienteEncontrado;
+            this.vehiculo = clienteEncontrado;
             StateHasChanged();
         }
         else
         {
-            mensaje = "Ese cliente no se ha encontrado";
+            mensaje = "Ese vehiculo no se ha encontrado";
         }
     }
 
     public async void Guardar()
     {
-        using var respuesta = await httpclient.PostAsJsonAsync("api/Vehiculo", cliente);
+        using var respuesta = await httpclient.PostAsJsonAsync("api/Vehiculo", vehiculo);
 
         if(Validar())
         {
@@ -117,7 +105,7 @@
         
             if(clienteDevuelto is not null)
             {
-                cliente = clienteDevuelto;
+                vehiculo = clienteDevuelto;
                 StateHasChanged();
             }
         }
@@ -125,36 +113,28 @@
 
     public void Nuevo()
     {
-        this.cliente = new Vehiculo();
+        this.vehiculo = new Vehiculo();
         mensaje = string.Empty;
     }
 
     public bool Validar()
     {
-        if(string.IsNullOrEmpty(cliente.Nombres))
+        if(string.IsNullOrEmpty(vehiculo.Fecha))
         {
             return false;
         }
-        if(string.IsNullOrEmpty(cliente.Telefono))
+        if(string.IsNullOrEmpty(vehiculo.Descripcion))
         {
             return false;
         }
-        if(string.IsNullOrEmpty(cliente.Celular))
+        if(string.IsNullOrEmpty(vehiculo.Costo))
         {
             return false;
         }
-        if(string.IsNullOrEmpty(cliente.RNC))
+        if(string.IsNullOrEmpty(vehiculo.Gastos))
         {
             return false;
-        }
-        if(string.IsNullOrEmpty(cliente.Email))
-        {
-            return false;
-        }
-        if(string.IsNullOrEmpty(cliente.Direccion))
-        {
-            return false;
-        }
+        }    
         else
         {
             return true;
@@ -163,7 +143,7 @@
 
     public async Task Eliminar()
     {
-        using var respuesta = await httpclient.DeleteAsync($"api/Vehiculo/{cliente.VehiculoId}");
+        using var respuesta = await httpclient.DeleteAsync($"api/Vehiculo/{vehiculo.VehiculoId}");
 
         if(Validar())
         {
