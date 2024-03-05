@@ -10,55 +10,55 @@ namespace RegistrosWebAssembly.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VehiculoController : ControllerBase
+    public class VehiculoDetalleController : ControllerBase
     {
         private readonly Context _context;
 
-        public VehiculoController(Context context)
+        public VehiculoDetalleController(Context context)
         {
             _context = context;
         }
 
-        // GET: api/Vehiculo
+        // GET: api/Accesorio
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehiculo>>> GetVehiculo()
+        public async Task<ActionResult<IEnumerable<VehiculoDetalle>>> GetVehiculo()
         {
-          if (_context.Vehiculo == null)
+          if (_context.Accesorio == null)
           {
               return NotFound();
           }
-            return await _context.Vehiculo.ToListAsync();
+            return await _context.Accesorio.ToListAsync();
         }
 
-        // GET: api/Vehiculo/5
+        // GET: api/Accesorio/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vehiculo>> GetVehiculo(int id)
+        public async Task<ActionResult<VehiculoDetalle>> GetVehiculos(int id)
         {
-          if (_context.Vehiculo == null)
+          if (_context.Accesorio == null)
           {
               return NotFound();
           }
-            var vehiculos = await _context.Vehiculo.FindAsync(id);
+            var tickets = await _context.Accesorio.FindAsync(id);
 
-            if (vehiculos == null)
+            if (tickets == null)
             {
                 return NotFound();
             }
 
-            return vehiculos;
+            return tickets;
         }
 
-        // PUT: api/Vehiculo/5
+        // PUT: api/Accesorio/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehiculos(int id, Vehiculo vehiculos)
+        public async Task<IActionResult> PutVehiculo(int id, VehiculoDetalle vehiculo)
         {
-            if (id != vehiculos.VehiculoId)
+            if (id != vehiculo.AccesorioId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(vehiculos).State = EntityState.Modified;
+            _context.Entry(vehiculo).State = EntityState.Modified;
 
             try
             {
@@ -79,36 +79,36 @@ namespace RegistrosWebAssembly.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Vehiculo
+        // POST: api/Accesorio
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Vehiculo>> PostVehiculos(Vehiculo vehiculos)
+        public async Task<ActionResult<VehiculoDetalle>> PostVehiculo(VehiculoDetalle vehiculo)
         {
-          if (_context.Vehiculo == null)
+          if (_context.Accesorio == null)
           {
-              return Problem("Entity set 'Context.Vehiculo'  is null.");
+              return Problem("Entity set 'Context.Accesorio'  is null.");
           }
-            _context.Vehiculo.Add(vehiculos);
+            _context.Accesorio.Add(vehiculo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVehiculo", new { id = vehiculos.VehiculoId }, vehiculos);
+            return CreatedAtAction("GetVehiculo", new { id = vehiculo.AccesorioId }, vehiculo);
         }
 
-        // DELETE: api/Vehiculo/5
+        // DELETE: api/Accesorio/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehiculos(int id)
         {
-            if (_context.Vehiculo == null)
+            if (_context.Accesorio == null)
             {
                 return NotFound();
             }
-            var vehiculos = await _context.Vehiculo.FindAsync(id);
+            var vehiculos = await _context.Accesorio.FindAsync(id);
             if (vehiculos == null)
             {
                 return NotFound();
             }
 
-            _context.Vehiculo.Remove(vehiculos);
+            _context.Accesorio.Remove(vehiculos);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -116,7 +116,7 @@ namespace RegistrosWebAssembly.Server.Controllers
 
         private bool VehiculoExists(int id)
         {
-            return (_context.Vehiculo?.Any(e => e.VehiculoId == id)).GetValueOrDefault();
+            return (_context.Accesorio?.Any(e => e.AccesorioId == id)).GetValueOrDefault();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prioridades",
+                name: "Accesorios",
                 columns: table => new
                 {
                     PrioridadId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -67,7 +67,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                 name: "Vehiculo");
 
             migrationBuilder.DropTable(
-                name: "Prioridades");
+                name: "Accesorios");
 
             migrationBuilder.DropTable(
                 name: "Accesorio");

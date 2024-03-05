@@ -60,7 +60,7 @@ namespace RegistrosWebAssembly.Server.Migrations
                     b.ToTable("Vehiculo");
                 });
 
-            modelBuilder.Entity("Prioridades", b =>
+            modelBuilder.Entity("Accesorios", b =>
                 {
                     b.Property<int>("AccesorioId")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace RegistrosWebAssembly.Server.Migrations
 
                     b.HasKey("AccesorioId");
 
-                    b.ToTable("Prioridades");
+                    b.ToTable("Accesorios");
                 });
 
             modelBuilder.Entity("Accesorio", b =>
